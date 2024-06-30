@@ -1,0 +1,226 @@
+LISTE
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int value;
+    struct node *nextPtr;
+};
+typedef struct node List;
+
+
+// liste: funzioni viste nella lezione n.1:
+
+void init(List **ptrPtr) {
+    *ptrPtr = NULL;
+}
+
+int isempty(List *ptr) {
+    /*if(ptr == NULL)
+        return 1;
+    else
+        return 0;*/
+    return ptr == NULL;
+}
+
+
+
+void pre_insert(List **ptr, int val) {
+    List *tmpPtr;
+
+    tmpPtr = *ptr;
+    *ptr = malloc(sizeof(List));
+    (*ptr)->value = val;
+    (*ptr)->nextPtr = tmpPtr;
+}
+/*//! INSERT SBAGLIATA !
+void wrong_insert(List *ptr, int val) {
+    List *tmpPtr;
+
+    tmpPtr = ptr;
+    ptr = malloc(sizeof(List));
+    (ptr)->value = val;
+    (ptr)->nextPtr = tmpPtr;
+}
+
+//? SECONDA VERSIONE DI pre_insert
+void pre_insert(List** pptr, int val){
+    struct nodo* nuovo = new_nodo(val);
+    nuovo->nextPtr = *pptr;
+    *pptr = nuovo;
+}
+
+//? NEW_NODO
+struct nodo* new_nodo(int info){
+    struct nodo *temp = (List*)malloc(sizeof(List));
+    temp->value = info;
+    temp->nextPtr = NULL;
+    return temp;
+}*/
+
+
+
+void suf_insert(List **ptr, int val) {
+    while(*ptr != NULL) {
+        ptr = &((*ptr)->nextPtr);
+    }
+    pre_insert(ptr, val);
+}
+ 
+/*//? SECONDA VERSIONE DI suf_insert
+void suf_insert(List** pptr, int val){
+    struct nodo* nuovo = new_nodo(val);
+    while(isempty(*pptr)==0){
+        pptr = &((*pptr)->nextPtr);
+    }
+    *pptr = nuovo;
+}
+*/
+
+void suf_insert_rec(List **ptr, int val) {
+    if(*ptr != NULL) {
+        suf_insert_rec(&((*ptr)->nextPtr), val);
+    }
+    else {
+        pre_insert(ptr, val);
+    }
+}
+
+
+
+void print_list(List *ptr) {
+    while(ptr != NULL) {
+        printf("%d ", ptr->value);
+        ptr = ptr->nextPtr;
+    }
+}
+
+// liste: funzioni viste nella lezione n.2:
+
+List* pre_insert_bis(List *ptr, int val) {
+    List *tmpPtr;
+
+    tmpPtr = ptr;
+    ptr = malloc(sizeof(List));
+    ptr->value = val;
+    ptr->nextPtr = tmpPtr;
+    return ptr;
+}
+
+void ord_insert(List **ptr, int val){
+    while(*ptr != NULL && val > (*ptr)->value) {
+        ptr = &((*ptr)->nextPtr);
+    }
+    pre_insert(ptr, val);   
+}
+
+void print_list_rec(List *ptr) {
+    //if(!ptr) {
+    if(ptr == NULL) {
+        return;
+    }    
+    else {    
+        printf("%d ", ptr->value);
+        print_list_rec(ptr->nextPtr);
+        // stampa in ordine inverso
+        //printf("%d ", ptr->valore);
+    }
+}
+
+
+
+// pila: push e pop
+
+void push(List **ptr, int val) {
+    // è la suf_insert già sviluppata...
+    while(*ptr != NULL) {
+        *ptr = (*ptr)->nextPtr;
+    }
+    pre_insert(ptr, val);
+}
+
+void pop(List **ptr){
+
+    // verifica se lista vuota
+    if(isempty(*ptr)) {
+    //if(*ptr == NULL) {
+        printf("La lista è vuota!\n");
+    }
+    else if((*ptr)->nextPtr == NULL) {
+        //*ptr = NULL;    
+        free(*ptr);
+    }
+    else {    
+        List *tmpPtr, *current = *ptr;
+        
+        while(current->nextPtr != NULL) {
+            tmpPtr = current;
+            current = current->nextPtr;
+        }
+        // cancella elemento in coda
+        tmpPtr->nextPtr = NULL;
+        free(current);
+    }
+}
+
+
+
+
+
+void delete_list(List* ptr){
+    if (ptr == NULL) return;
+    delete_list(ptr->nextPtr);
+    free(ptr);
+}
+
+void modifica(List** ptr, int pos, int val){
+     int count=1;
+    if(isempty(*ptr)==1 || pos>lung(*ptr)){
+        printf("Stringa Vuota o Posizione NON valida\n");
+        return -1;
+    }
+     else{
+        while(count!=pos){
+            ptr=&((*ptr)->nextPtr);
+            count++;
+        }
+        (*ptr)->value=val;
+    }
+}
+
+struct nodo* filter(List* ptr, int thres){
+    struct nodo* list = NULL;
+
+    int val;
+    for(int i=0; i<lung(ptr); i++){
+        val = get(ptr, i);
+        if(val>=thres) suf_insert(&list, val);
+    }
+    return list;
+}
+// Data una lista di partenza, restituire una nuova lista con tutti e soli gli elementi maggiori o uguali di una certa soglia (nello stesso ordine) 
+
+int lung(List *ptr){
+    if(ptr==NULL){
+        return 0;
+    }
+    else{
+        return 1+lung(ptr->nextPtr);
+    }
+}
+
+int get(List* ptr, int pos){
+    int count=1;
+    if(isempty(ptr)==1 || pos>lung(ptr)){
+        printf("Stringa Vuota o Posizione NON valida\n");
+        return -1;
+    }
+    else{
+        while(count!=pos){
+            ptr=ptr->nextPtr;
+            count++;
+        }
+        return ptr->value;
+    }
+}
