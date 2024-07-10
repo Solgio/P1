@@ -1,6 +1,6 @@
 {
-    "files.associations": {
-        "Verifica BST.C": "cpp",
-        "lista.h": "c"
-    }
+  "files.associations": {
+    "Verifica BST.C": "cpp",
+    "lista.h": "c"
+  }
 }

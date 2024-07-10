@@ -1,4 +1,5 @@
 # Triangolo Magico
+
 ## Confronto
 
 ```c
@@ -33,37 +34,41 @@ int s(int x, int y){
 }
 
 ```
-### Equivalenza Estensiva
-- Le due funzioni `s()` e `t()` arrivano alla stessa **POST**, seppur *semanticamente diverse*.
-   <br><br>
 
-### Equivalenza 
+### Equivalenza Estensiva
+
+- Le due funzioni `s()` e `t()` arrivano alla stessa **POST**, seppur _semanticamente diverse_.
+  <br><br>
+
+### Equivalenza
+
 - Le due funzioni arrivano alla stessa post ma hanno livelli di **complessità differenti**.
   <br><br>
 
 > [!IMPORTANT]
 > L'analisi della complessità induce l'analisi degli elementi
 >
-  <br>
+>   <br>
 
 ### Dimostrazioni di Confronto tra i Programmi
 
-*Proposizione 1:* hivb,n,<br>
-*Proposizione 2:* L'idea è che la complessità deve essere uguale per entrambi le funzioni.
+_Proposizione 1:_ hivb,n,<br>
+_Proposizione 2:_ L'idea è che la complessità deve essere uguale per entrambi le funzioni.
 
 #### **Dimostrazione 1**
-*Proposizione 1:*
+
+_Proposizione 1:_
 
 #### **Dimostrazione 1**
-*Proposizione 1:*
+
+_Proposizione 1:_
 
 #### **Passo induttivo**
-*Proposizione 1:*
 
+_Proposizione 1:_
 
 **CASO 1**
 
 **CASO 2**
-
 
 **CASO 3**
