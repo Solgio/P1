@@ -74,7 +74,7 @@ void pre_insert(List **ptr, int val) {
     List *tmpPtr;
 
     tmpPtr = *ptr;
-    *ptr = malloc(sizeof(List));
+    *ptr = (List *)malloc(sizeof(List));
     (*ptr)->value = val;
     (*ptr)->nextPtr = tmpPtr;
 }
@@ -83,7 +83,7 @@ void wrong_insert(List *ptr, int val) {
     List *tmpPtr;
 
     tmpPtr = ptr;
-    ptr = malloc(sizeof(List));
+    ptr = (List *)malloc(sizeof(List));
     (ptr)->value = val;
     (ptr)->nextPtr = tmpPtr;
 }
@@ -108,7 +108,7 @@ List* pre_insert_bis(List *ptr, int val) {
     List *tmpPtr;
 
     tmpPtr = ptr;
-    ptr = malloc(sizeof(List));
+    ptr = (List *)malloc(sizeof(List));
     ptr->value = val; 
     ptr->nextPtr = tmpPtr;
     return ptr;
