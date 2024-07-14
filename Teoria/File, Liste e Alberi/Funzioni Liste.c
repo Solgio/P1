@@ -95,6 +95,38 @@ void suf_insert(List **ptr, int val) {
     pre_insert(ptr, val);
 }
 
+
+
+void copy(List *Original, List **Copy){
+    if(Original->nextPtr == NULL){
+        return;
+    }
+
+    else{
+        List* tmpPtr = (List *)malloc(sizeof(List));
+        tmpPtr->value = Original->value;
+        tmpPtr->nextPtr = NULL;
+        if(Copy == NULL){
+            *Copy = tmpPtr;
+        }
+        else{
+            (*Copy)->nextPtr = tmpPtr;
+            copy(&(*(Original)->nextPtr), &(*(Copy)->nextPtr));
+        }
+}
+}
+
+void copyInvert(List *Original, List **Copy){
+    if(Original->nextPtr == NULL){
+        return;
+    }
+
+    else{
+        pre_insert(Copy, Original->value);
+        copyInvert(Original->nextPtr, Copy);
+    }
+}
+
 void print_list(List *ptr) {
     while(ptr != NULL) {
         printf("%d ", ptr->value);
