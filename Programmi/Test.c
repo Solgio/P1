@@ -3,6 +3,9 @@
 void swap_eq(int* arr, int dim, int i, int j, int n);
 void swap(int* arr, int dim, int m, int n, int p);
 
+//! SCAMBIO AREE DI UN ARRAY
+
+//! 1) Aree di ampiezza uguali
 // Implementazione di swap_eq
 void swap_eq(int* arr, int dim, int i, int n,  int j) {
     if (n == 0) {
@@ -16,6 +19,7 @@ void swap_eq(int* arr, int dim, int i, int n,  int j) {
     swap_eq(arr, dim, i + 1, n - 1 , j + 1);
 }
 
+//! 2) Aree di ampiezza diversa
 // Implementazione di swap
 void swap(int* arr, int dim, int m, int n, int p) {
     // Condizione di terminazione: se le porzioni sono vuote o uguali
@@ -39,41 +43,62 @@ void swap(int* arr, int dim, int m, int n, int p) {
     }
 }
 
-int main(void) {
-    printf("Seleziona una dimensione\n");
-    int size;
-    scanf("%d", &size);
+//! 1 SE STESSI CARATTERI NELLO STESSO ORDINE 
+//! CON SEGNO UGUALE O OPPOSTO 0 ALTRIMENTI
 
-    int A[size];
-    int c=0;
-    while(c<size){
-        A[c]=c;
-        c++;
+int array_stesso_ordine(int *A, int dimA, int *B, int dimB){
+    if(dimB==0){
+        return 1;
     }
-
-    for(int i=0; i<size; i++){
-        printf("%d ", A[i]);
+    
+  
+    if(dimA==0){
+        return 0;
     }
-
-    int i, n, j;
-    do{
-        printf("Seleziona i\n");
-        scanf("%d", &i);
-        printf("Seleziona n\n");
-        scanf("%d", &n);
-        printf("Seleziona j\n");
-        scanf("%d", &j);
-    }while(j+n>size || i+n>j || i<0 || n<0 || j<0);
-
-    scambia(A, i, n, j);
-
-    for(int i=0; i<size; i++){
-        printf("%d ", A[i]);
+    
+  
+    if(*A==*B || *A==-*B ){
+        return array_stesso-ordine(A+1, dimA-1, B+1, dimB-1);
+    }
+    
+    else{
+        return array_stesso-ordine(A, dimA, B+1, dimB-1);
     }
 }
 
 
+//! ELIMINA GLI ELEMENTI PALINDROMI DI UN ARRAY
 
+void eliminaPalindromi(char *A) {
+    int i = 0;
+    int dim = strlen(A);
+    printf("%d\n", dim);
+
+    // Spostiamo 'dim' all'ultima posizione valida dell'array
+    dim--;
+
+    // Sovrascriviamo i caratteri palindromici con un carattere speciale, ad esempio '\0'
+    while (i <= (dim / 2)) {
+        if (A[i] == A[dim - i]) {
+            A[i] = '\0';
+            A[dim - i] = '\0';
+        }
+        i++;
+    }
+
+    // Ricostruire la stringa senza i caratteri '\0'
+    int writeIndex = 0;
+    for (int j = 0; j <= dim; j++) {
+        if (A[j] != '\0') {
+            A[writeIndex++] = A[j];
+        }
+    }
+    A[writeIndex] = '\0';  // Aggiungi il terminatore di stringa
+}
+
+
+
+//! TROVA SE SOMMA DI ELEMENTI DI UN ARRAY È UGUALE A TARGET
 
 #include <stdio.h>
 
