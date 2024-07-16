@@ -96,8 +96,6 @@ void suf_insert(List **ptr, int val) {
     pre_insert(ptr, val);
 }
 
-
-
 void copy(List *Original, List **Copy){
     if(Original->nextPtr == NULL){
         return;
