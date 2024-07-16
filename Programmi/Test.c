@@ -111,7 +111,7 @@ void filter(char *A, int index){
 
 }
 
-void elimaPalindromiRec(char *A, int dim){
+void eliminaPalindromiRec(char *A, int dim){
     if(dim == 0){
         int index = 0;
         filter(A, index);
@@ -123,7 +123,7 @@ void elimaPalindromiRec(char *A, int dim){
         A[dim] = '\0';
     }
 
- elimaPalindromiRec(A, dim-1);
+ eliminaPalindromiRec(A, dim-1);
 }
 
 //! TROVA SE SOMMA DI ELEMENTI DI UN ARRAY È UGUALE A TARGET

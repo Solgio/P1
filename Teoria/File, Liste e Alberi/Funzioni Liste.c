@@ -79,6 +79,7 @@ void pre_insert(List **ptr, int val) {
     (*ptr)->nextPtr = tmpPtr;
 }
 
+//! NON FUNZIONA
 void wrong_insert(List *ptr, int val) {
     List *tmpPtr;
 
@@ -113,7 +114,7 @@ void copy(List *Original, List **Copy){
             (*Copy)->nextPtr = tmpPtr;
             copy(&(*(Original)->nextPtr), &(*(Copy)->nextPtr));
         }
-}
+    }
 }
 
 void copyInvert(List *Original, List **Copy){

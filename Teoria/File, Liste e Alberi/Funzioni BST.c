@@ -129,7 +129,7 @@ void ordinsert_rec(BST **ptrPtr, int val) {
 
 // ritorna NULL se albero vuoto o se diventa vuoto dopo eliminazione del nodo
 BST* remove_node(BST *root, int val) {
-    
+
     if(root == NULL)
         return NULL;
 
