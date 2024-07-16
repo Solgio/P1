@@ -43,19 +43,17 @@ void swap(int* arr, int dim, int m, int n, int p) {
     }
 }
 
-//! 1 SE STESSI CARATTERI NELLO STESSO ORDINE 
-//! CON SEGNO UGUALE O OPPOSTO 0 ALTRIMENTI
+//! RETURN 1 SE STESSI CARATTERI NELLO STESSO ORDINE CON SEGNO UGUALE
+//! O OPPOSTO,           RETURN 0 ALTRIMENTI
 
 int array_stesso_ordine(int *A, int dimA, int *B, int dimB){
     if(dimB==0){
         return 1;
     }
-    
   
     if(dimA==0){
         return 0;
     }
-    
   
     if(*A==*B || *A==-*B ){
         return array_stesso-ordine(A+1, dimA-1, B+1, dimB-1);
@@ -96,7 +94,37 @@ void eliminaPalindromi(char *A) {
     A[writeIndex] = '\0';  // Aggiungi il terminatore di stringa
 }
 
+void filter(char *A, int index){
+    if(index == strlen(A)){
+        A[index] = '\0';
+        return;
+    }
 
+    if(*A!='\0'){
+        A[index] = *A;
+        filter(A+1, index+1);
+    }
+
+    else{
+        filter(A+1, index);
+    }
+
+}
+
+void elimaPalindromiRec(char *A, int dim){
+    if(dim == 0){
+        int index = 0;
+        filter(A, index);
+        return;
+    }
+
+    if(*A == A[dim]){
+        *A = '\0';
+        A[dim] = '\0';
+    }
+
+ elimaPalindromiRec(A, dim-1);
+}
 
 //! TROVA SE SOMMA DI ELEMENTI DI UN ARRAY È UGUALE A TARGET
 

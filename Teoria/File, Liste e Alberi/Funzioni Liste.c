@@ -123,6 +123,9 @@ void copyInvert(List *Original, List **Copy){
 
     else{
         pre_insert(Copy, Original->value);
+        List* tmp=(List*)malloc(sizeof(List));
+        tmp->value = Original->value;
+        tmp->nextPtr = *Copy;
         copyInvert(Original->nextPtr, Copy);
     }
 }
