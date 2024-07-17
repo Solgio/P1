@@ -126,7 +126,7 @@ void eliminaPalindromiRec(char *A, int dim){
  eliminaPalindromiRec(A, dim-1);
 }
 
-//! TROVA SE SOMMA DI ELEMENTI DI UN ARRAY È UGUALE A TARGET
+//!  TROVA SE SOMMA DI ELEMENTI DI UN ARRAY È UGUALE A TARGET
 
 #include <stdio.h>
 
