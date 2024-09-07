@@ -145,69 +145,20 @@ void ordinsert_rec(BST **ptrPtr, int val)
     }
 }
 
-// ritorna NULL se albero vuoto o se diventa vuoto dopo eliminazione del nodo
-BST *remove_node(BST *root, int val)
+// restituisce 1 se l'albero � un BST, 0 altrimenti
+int isbst(BST *ptr)
 {
 
-    if (root == NULL)
-        return NULL;
-
-    // If root->value < val, val must be present in the right subtree
-    if (root->valore < val)
-        root->rightPtr = remove_node(root->rightPtr, val);
-
-    // If root->value > val, val must be present in the left subtree
-    else if (root->valore > val)
-        root->leftPtr = remove_node(root->leftPtr, val);
-
-    /* This part will be executed only if the root->value == val
-     * The actual removal starts from here! */
+    if (isbst_inrange(ptr, INT_MIN, INT_MAX))
+    {
+        // The tree is a BST!
+        return 1;
+    }
     else
     {
-
-        // Case 1: Leaf node
-        if (root->leftPtr == NULL && root->rightPtr == NULL)
-        {
-            free(root);
-            return NULL;
-        }
-        // Case 2: Node has right child
-        else if (root->leftPtr == NULL)
-        {
-            BST *tmp = root->rightPtr;
-            free(root);
-            return tmp;
-        }
-        // Case 3: Node has left child
-        else if (root->rightPtr == NULL)
-        {
-            BST *tmp = root->leftPtr;
-            free(root);
-            return tmp;
-        }
-        // Case 4: Node has both left and right children
-        else
-        {
-            int rightMin = get_right_min(root->rightPtr);
-            root->valore = rightMin;
-            root->rightPtr = remove_node(root->rightPtr, rightMin);
-        }
+        // The tree is not a BST!
+        return 0;
     }
-
-    // return the actual root's address
-    return root;
-}
-
-int get_right_min(BST *root)
-{
-    BST *tmp = root;
-
-    // min value should be present in the left most node
-    while (tmp->leftPtr != NULL)
-    {
-        tmp = tmp->leftPtr;
-    }
-    return tmp->valore;
 }
 
 int isbst_inrange(BST *ptr, int min_val, int max_val)
@@ -292,6 +243,18 @@ BST *remove_node(BST *root, int val)
     return root;
 }
 
+int get_right_min(BST *root)
+{
+    BST *tmp = root;
+
+    // min value should be present in the left most node
+    while (tmp->leftPtr != NULL)
+    {
+        tmp = tmp->leftPtr;
+    }
+    return tmp->valore;
+}
+
 // cancellazione di un nodo (versione alternativa)
 void delete_node(BST **root, int val)
 {
@@ -314,7 +277,7 @@ void delete_node(BST **root, int val)
         free(node_to_delete);
 
         BST *iteratore = *root;
-        if (iteratore != NULL)
+        if (iteratore != NULL) // Esiste un ramo destro
         {
             while (iteratore->leftPtr != NULL)
             {
@@ -322,7 +285,7 @@ void delete_node(BST **root, int val)
             }
             iteratore->leftPtr = node_to_leaf;
         }
-        else
+        else // Non esiste un ramo destro
         {
             *root = node_to_leaf;
         }
