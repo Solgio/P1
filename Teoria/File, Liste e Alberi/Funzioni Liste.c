@@ -59,7 +59,6 @@ int main()
 }
 
 // liste: funzioni viste nella lezione n.1:
-
 void init(List **ptrPtr)
 {
     *ptrPtr = NULL;
@@ -130,7 +129,7 @@ void copy(List *Original, List **Copy)
 
 void copyInvert(List *Original, List **Copy)
 {
-    if (Original->nextPtr == NULL)
+    if (Original == NULL)
     {
         return;
     }
@@ -138,9 +137,11 @@ void copyInvert(List *Original, List **Copy)
     else
     {
         pre_insert(Copy, Original->value);
-        List *tmp = (List *)malloc(sizeof(List));
-        tmp->value = Original->value;
-        tmp->nextPtr = *Copy;
+        /* List *tmpPtr;
+        tmpPtr = *Copy;
+        *Copy = (List *)malloc(sizeof(List));
+        (*Copy)->value = Original->val;
+        (*Copy)->nextPtr = tmpPtr;*/
         copyInvert(Original->nextPtr, Copy);
     }
 }

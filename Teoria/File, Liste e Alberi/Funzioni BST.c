@@ -321,3 +321,20 @@ void print_bst2D(BST *root)
     // Pass initial space count as 0
     print_bst2D_util(root, 0);
 }
+
+// Funzione che crea un albero speculare
+void mirror(BST *root, BST *mirror)
+{
+    if (root != NULL)
+    {
+        BST *newBst = (BST *)malloc(sizeof(BST));
+        newBst->valore = root->valore;
+        newBst->leftPtr = mirror(root->rightPtr);
+        newBst->rightPtr = mirror(root->leftPtr);
+    }
+
+    else
+    {
+        return newBst;
+    }
+}
