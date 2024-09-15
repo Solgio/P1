@@ -77,7 +77,7 @@ int ordinato(int X[], int dim)
         return 0;
 }
 
-// Dato un array e un numero restituisce se il numero è ottenibile sommando valori dell'array
+// Dato un array di interi, restituisce la somma degli estremi
 void somma_estremi(int *A, int dim, int *somma)
 {
     if (dim == 0)
@@ -227,18 +227,18 @@ int array_stesso_ordine(int *A, int dimA, int *B, int dimB)
     }
     if (*A == *B || *A == -*B)
     {
-        return array_stesso - ordine(A + 1, dimA - 1, B + 1, dimB - 1);
+        return array_stesso_ordine(A + 1, dimA - 1, B + 1, dimB - 1);
     }
     else
     {
-        return array_stesso - ordine(A, dimA, B + 1, dimB - 1);
+        return array_stesso_ordine(A, dimA, B + 1, dimB - 1);
     }
 }
 
 //! SCAMBIO AREE DI UN ARRAY
 
 //! 1) Aree di ampiezza uguali
-// Implementazione di swap_eq
+// Implementazione di swap_eq (scambia arr[i]-arr[i+n-1] con arr[j]-arr[j+n-1])
 void swap_eq(int *arr, int dim, int i, int n, int j)
 {
     if (n == 0)
@@ -253,29 +253,89 @@ void swap_eq(int *arr, int dim, int i, int n, int j)
 }
 
 //! 2) Aree di ampiezza diversa
-// Implementazione di swap
+// Implementazione di swap  (scambia arr[m]-arr[n-1] con arr[n]-arr[p-1])
 void swap(int *arr, int dim, int m, int n, int p)
 {
-    // Condizione di terminazione: se le porzioni sono vuote o uguali
-    if (m >= n || n >= p)
+    int len1 = n - m;
+    int len2 = p - n;
+
+    if (len1 == len2)
     {
-        return;
-    }
-    if (n - m == p - n)
-    {
+        printf("1=2\n");
         // Se le due porzioni sono della stessa lunghezza, usiamo swap_eq
-        swap_eq(arr, dim, m, n - m, n);
+        swap_eq(arr, dim, m, len1, n);
+        print_array(arr, dim);
     }
-    else if (n - m < p - n)
+    else if (len1 < len2)
     {
+        printf("1<2\n");
         // Se la prima porzione è più corta, scambiamo la parte iniziale e richiamiamo swap
-        swap_eq(arr, dim, m, n - m, n);
-        swap(arr, dim, n, n + (n - m), p);
+        swap_eq(arr, dim, m, len1, n);
+        print_array(arr, dim);
+        swap(arr, dim, n, n + len1, p);
     }
     else
     {
+        printf("1>2\n");
         // Se la seconda porzione è più corta, scambiamo la parte finale e richiamiamo swap
-        swap_eq(arr, dim, m, p - n, n);
-        swap(arr, dim, m + (p - n), n, p);
+        swap_eq(arr, dim, m, len2, n);
+        print_array(arr, dim);
+        swap(arr, dim, m + len2, n, p);
     }
 }
+
+// PRE: Dato un numero positivo e una stringa vuota
+void intToString(int n, char *s)
+{
+    if (n == 0)
+    {
+        *s = '0';
+        *(s + 1) = '\0';
+        return;
+    }
+    else
+    {
+        *s = n % 10 + '0';
+        intToString(n / 10, s + 1);
+    }
+}
+// POST: Salvo il risultato del resto della divisione per 10, inserendop alla fine, quando ho esaurito il numero, uno 0 e in carattere di stop.
+// PRE: Data una stringa anche nulla
+void copyString(char *s1, char *s2)
+{
+    if (*s1 == '\0')
+    {
+        return;
+    }
+    else
+    {
+        *s2 = *s1;
+        copyString(s1 + 1, s2 + 1);
+    }
+}
+// POST: copio ricorsivamente la prima nella seconda finche il puntatore non raggiunge il carattere di stop
+
+// PRE: date due stringhe anche nulle e una stringa vuota di massimo lunghezza 10
+//  Recursive function to interleave characters from s1 and s2 into r
+void shuffle(char *s1, char *s2, char *r)
+{
+    if (*s1 == '\0' && *s2 != '\0')
+    {
+        copyString(s2, r);
+        printf("test");
+        return;
+    }
+    if (*s1 != '\0' && *s2 == '\0')
+    {
+        copyString(s1, r);
+        return;
+    }
+
+    if (*s1 != '\0' && *s2 != '\0')
+    {
+        *r = *s1;
+        printf("%c %c\n", *s1, *s2);
+        shuffle(s2, s1 + 1, r + 1);
+    }
+}
+// POST: copio nella terza stringa alternando le altre due stringhe, se una delle due finisce prima delle altra copio cio' che resta cion copyString

@@ -297,6 +297,30 @@ struct nodo *delete(struct nodo *ptr, int pos)
     current->next = next;
     return ptr;
 }
+
+struct nodo *delete_rec(struct nodo *ptr, int pos)
+{
+    if (ptr == NULL)
+        return NULL;
+    if (pos == 0)
+    {
+        struct nodo *next = ptr->next;
+        free(ptr);
+        return next;
+    }
+    if (pos == 1)
+    {
+        struct nodo *next_next = ptr->next->next;
+        free(ptr->next);
+        ptr->next = next_next;
+        return ptr;
+    }
+    else
+    {
+        ptr->next = delete_rec(ptr->next, pos - 1);
+        return ptr;
+    }
+}
 // POST: restituisce il primo nodo della lista che è quella originale senza il nodo in posizione pos, che è stato eliminato
 
 // PRE: orig è un riferimento ad una lista concatenata, lim1 e lim2 due interi presenti una o zero volte all'interno della lista (non sono ripetuti)
@@ -318,11 +342,28 @@ struct nodo *extract(struct nodo **orig, int lim1, int lim2)
     if (init != NULL && fin != NULL)
     {
         struct nodo *tmp = *init;
-        *init = *fin;
-        *fin = NULL;
+        *init = *fin; // ricollega la lista originale
+        *fin = NULL;  // separa la sottolista
         return tmp;
     }
     return NULL;
+}
+
+struct nodo *extract_rec(struct nodo **orig, int lim1, int lim2)
+{
+    if ((*orig)->info == NULL)
+        return NULL;
+
+    if ((*orig)->info == lim1 && *fin == NULL)
+
+        if ((*orig)->info == lim2 && *ini != NULL)
+
+            if (*ini != NULL && *fin != NULL)
+            {
+                struct nodo *tmp = *ini;
+                *ini = *fin;
+                *fin = NULL;
+            }
 }
 // POST: se la lista contiene, in qualche posizione i e j con i<=j, l'intero lim1 in i e lim2 in j, ritornare la lista di nodi compresa tra i e j e modificare orig in modo
 //       che tale sottolista non sia più inclusa. Altrimenti ritornare NULL e lasciare orig invariato
