@@ -335,6 +335,6 @@ void mirror(BST *root, BST *mirror)
 
     else
     {
-        return newBst;
+        return mirror;
     }
 }
