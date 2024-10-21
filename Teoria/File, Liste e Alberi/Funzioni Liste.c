@@ -150,7 +150,7 @@ void print_list(List *ptr)
 {
     while (ptr != NULL)
     {
-        printf("%d ", ptr->value);
+        printf("%d->", ptr->value);
         ptr = ptr->nextPtr;
     }
 }

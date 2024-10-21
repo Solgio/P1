@@ -299,7 +299,8 @@ void intToString(int n, char *s)
         intToString(n / 10, s + 1);
     }
 }
-// POST: Salvo il risultato del resto della divisione per 10, inserendop alla fine, quando ho esaurito il numero, uno 0 e in carattere di stop.
+// POST: Salvo il risultato del resto della divisione per 10 e inserendo alla fine, quando ho esaurito il numero, uno 0 e in carattere di stop.
+
 // PRE: Data una stringa anche nulla
 void copyString(char *s1, char *s2)
 {
