@@ -24,6 +24,9 @@ void weirdinsert_rec(BST **ptrPtr, int val);
 void print_bst2D_uil(BST *root, int space);
 void print_bst2D(BST *root);
 
+void print_bt2D_uil(struct btree *root, int space);
+void print_bt2D(struct btree *root);
+
 int main(void)
 {
     BST *albero;
@@ -38,7 +41,8 @@ int main(void)
     ordinsert_rec(&albero, 6);
     ordinsert_rec(&albero, 9);
     ordinsert_rec(&albero, 5);
-    // print_bst2D(albero);
+    print_bst2D(albero);
+    printf("-------------------------------\n");
     // printf("\nL'albero è un BST? %d\n", isbst(albero));
 
     // creazione di un btree non BST
@@ -55,7 +59,7 @@ int main(void)
     weirdinsert_rec(&albero2, 7);
     weirdinsert_rec(&albero2, 5);
     weirdinsert_rec(&albero2, 9);
-    // print_bst2D(albero2);
+    print_bt2D(albero2);
     // printf("\nL'albero è un BST? %d\n", isbst(albero2));
 
     // verifichiamo se il primo albero è un BST
@@ -181,4 +185,35 @@ void print_bst2D(BST *root)
 {
     // Pass initial space count as 0
     print_bst2D_util(root, 0);
+}
+
+// funzione di stampa/visualizzazione dell'albero
+void print_bt2D_util(struct btree *root, int space)
+{
+
+    // Base case
+    if (root == NULL)
+        return;
+
+    // Increase distance between levels
+    space += COUNT;
+
+    // Process right child first
+    print_bt2D_util(root->rightPtr, space);
+
+    // Print current node after space
+    // count
+    printf("\n");
+    for (int i = COUNT; i < space; i++)
+        printf(" ");
+    printf("%d\n", root->valore);
+
+    // Process left child
+    print_bt2D_util(root->leftPtr, space);
+}
+
+void print_bt2D(struct btree *root)
+{
+    // Pass initial space count as 0
+    print_bt2D_util(root, 0);
 }
