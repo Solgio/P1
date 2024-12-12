@@ -27,6 +27,7 @@ void swap(int *a, int dim, int m, int n, int p)
     if (dim1 == dim2)
     {
         swap_eq(a, dim, m, dim1, p);
+        n
     }
     else if (dim1 > dim2)
     {

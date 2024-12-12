@@ -71,35 +71,30 @@ void init(BST **ptrPtr)
     *ptrPtr = NULL;
 }
 
-// restituisce 1 se l'albero è un BST, 0 altrimenti
-int isbst_in_range(BST *ptr, int MIN, int MAX)
-{
-    if (ptr == NULL)
-    {
-        return 1;
-    }
-    else
-    {
-        if (ptr->valore < MIN || ptr->valore > MAX)
-        {
-            return 0;
-        }
-        else
-        {
-            return isbst_in_range(ptr->leftPtr, MIN, ptr->valore) && isbst_in_range(ptr->rightPtr, ptr->valore, MAX);
-        }
-    }
-}
-
 int isbst(BST *ptr)
 {
-    if (isbst_in_range(ptr, INT_MIN, INT_MAX))
+    if (ptr != NULL)
     {
-        return 1;
+        if (ptr->leftPtr != NULL)
+        {
+            if ((ptr->leftPtr)->valore > ptr->valore)
+            {
+                return 0;
+            }
+        }
+        if (ptr->rightPtr != NULL)
+        {
+            if ((ptr->rightPtr)->valore < ptr->valore)
+            {
+                return 0;
+            }
+        }
+
+        return isbst(ptr->leftPtr) && isbst(ptr->rightPtr);
     }
     else
     {
-        return 0;
+        return 1;
     }
 }
 

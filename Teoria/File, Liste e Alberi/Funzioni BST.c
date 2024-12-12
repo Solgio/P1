@@ -145,6 +145,33 @@ void ordinsert_rec(BST **ptrPtr, int val)
     }
 }
 
+int isbst(BST *ptr)
+{
+    if (ptr != NULL)
+    {
+        if (ptr->leftPtr != NULL)
+        {
+            if ((ptr->leftPtr)->valore > ptr->valore)
+            {
+                return 0;
+            }
+        }
+        if (ptr->rightPtr != NULL)
+        {
+            if ((ptr->rightPtr)->valore < ptr->valore)
+            {
+                return 0;
+            }
+        }
+
+        return isbst(ptr->leftPtr) && isbst(ptr->rightPtr);
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 // restituisce 1 se l'albero � un BST, 0 altrimenti
 int isbst(BST *ptr)
 {
